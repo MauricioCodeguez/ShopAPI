@@ -17,10 +17,12 @@ namespace Shop.Domain.Commands.Inputs
             AddNotifications(new ValidationContract()
                 .Requires()
                 .HasLen(Id.ToString(), 36, nameof(Id), "Id inválido")
+                .AreNotEquals(Id.ToString(), Guid.Empty.ToString(), nameof(Id), "Id não pode ser nulo")
                 .HasMinLen(Name, 3, nameof(Name), "O nome deve conter pelo menos 3 caracteres")
                 .HasMaxLen(Name, 150, nameof(Name), "O nome deve conter no máximo 150 caracteres")
                 .HasMinLen(Description, 10, nameof(Description), "A descrição deve conter pelo menos 10 caracteres")
-                .HasMaxLen(Description, 1000, nameof(Description), "A descrição deve conter no máximo 1000 caracteres"));
+                .HasMaxLen(Description, 1000, nameof(Description), "A descrição deve conter no máximo 1000 caracteres")
+                .IsGreaterThan(Price, 0, nameof(Price), "O preço precisa ser maior que 0"));
 
             return Valid;
         }

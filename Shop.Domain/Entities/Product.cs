@@ -19,6 +19,16 @@ namespace Shop.Domain.Entities
             Price = price;
         }
 
+        public void UpdateProduct(
+            string name,
+            string description,
+            decimal price)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+        }
+
         public override string ToString() => Name;
     }
 }

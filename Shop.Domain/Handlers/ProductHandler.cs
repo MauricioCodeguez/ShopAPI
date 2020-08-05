@@ -19,7 +19,7 @@ namespace Shop.Domain.Handlers
         {
             var product = await _productRepository.GetByIdAsync(id);
 
-            if (product == null)
+            if (product.Id == Guid.Empty)
                 return new CommandResult(false, "Produto não existe", null);
 
             await _productRepository.DeleteAsync(id);
@@ -34,8 +34,8 @@ namespace Shop.Domain.Handlers
 
         public async Task<ICommandResult> Handle(CreateProductCommand command)
         {
-            if (command.Invalid)
-                return new UpdateProductCommandResult(false, "Erro ao cadastrar o produto", command.Notifications);
+            if (!command.IsValid())
+                AddNotifications(command.Notifications);
 
             if (await _productRepository.ExistsAsync(command.Name))
                 AddNotification("Product", "Esse produto já existe");
@@ -58,8 +58,8 @@ namespace Shop.Domain.Handlers
 
         public async Task<ICommandResult> Handle(UpdateProductCommand command)
         {
-            if (command.Invalid)
-                return new UpdateProductCommandResult(false, "Erro ao atualizar o produto", command.Notifications);
+            if (!command.IsValid())
+                AddNotifications(command.Notifications);
 
             var product = new Product(command.Name, command.Description, command.Price);
 
