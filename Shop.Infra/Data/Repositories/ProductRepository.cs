@@ -5,6 +5,7 @@ using Shop.Domain.Queries;
 using Shop.Domain.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,7 +54,7 @@ namespace Shop.Infra.Data.Repositories
             sql.AppendLine("   FROM Product ");
             sql.AppendLine("  WHERE Id = @Id ");
 
-            return await _context.Connection.QueryFirstAsync<GetProductQuery>(sql.ToString(), new { Id = id });
+            return (await _context.Connection.QueryAsync<GetProductQuery>(sql.ToString(), new { Id = id })).FirstOrDefault();
         }
 
         public async Task SaveAsync(Product product)

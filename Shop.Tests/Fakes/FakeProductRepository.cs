@@ -57,22 +57,21 @@ namespace Shop.Tests.Fakes
 
         public Task<GetProductQuery> GetByIdAsync(Guid id)
         {
+            GetProductQuery result = null;
             var product = _products.FirstOrDefault(a => a.Id == id);
 
             if (product != null)
             {
-                GetProductQuery result = new GetProductQuery
+                result = new GetProductQuery
                 {
                     Id = product.Id,
                     Name = product.Name,
                     Description = product.Description,
                     Price = product.Price
                 };
-
-                return Task.FromResult(result);
             }
 
-            return Task.FromResult(new GetProductQuery());
+            return Task.FromResult(result);
         }
 
         public Task SaveAsync(Product product)

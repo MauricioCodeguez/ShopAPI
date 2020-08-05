@@ -19,7 +19,7 @@ namespace Shop.Domain.Handlers
         {
             var product = await _productRepository.GetByIdAsync(id);
 
-            if (product.Id == Guid.Empty)
+            if (product == null)
                 return new CommandResult(false, "Produto não existe", null);
 
             await _productRepository.DeleteAsync(id);
