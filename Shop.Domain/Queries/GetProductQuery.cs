@@ -9,5 +9,7 @@ namespace Shop.Domain.Queries
         public string Description { get; set; }
         public decimal Price { get; set; }
         public DateTime? Updated { get; set; }
+
+        public override string ToString() => Name;
     }
 }
