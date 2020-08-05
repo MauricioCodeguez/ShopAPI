@@ -1,7 +1,9 @@
-﻿namespace Shop.Shared.Commands
+﻿using System.Threading.Tasks;
+
+namespace Shop.Shared.Commands
 {
     public interface ICommandHandler<T> where T : ICommand
     {
-        ICommandResult Handle(T command);
+        Task<ICommandResult> Handle(T command);
     }
 }

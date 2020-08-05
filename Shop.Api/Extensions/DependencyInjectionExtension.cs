@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shop.Domain.Context;
+using Shop.Domain.Handlers;
 using Shop.Domain.Repositories;
 using Shop.Infra.Data;
 using Shop.Infra.Data.Repositories;
@@ -12,6 +13,7 @@ namespace Shop.Api.Extensions
         {
             services.AddScoped<IDbContext, DbContext>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductHandler, ProductHandler>();
             return services;
         }
     }
